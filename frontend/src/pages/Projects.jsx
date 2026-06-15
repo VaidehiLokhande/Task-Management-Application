@@ -1,45 +1,43 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
-import API from "../services/api"; // आपली एपीआय सर्व्हिस
-
+import API from "../services/api"; 
 function Projects() {
-  // १. लॉगिन असलेल्या युझरची माहिती मिळवणे
+ 
   const user = JSON.parse(localStorage.getItem("user"));
-  const isAdmin = user?.role === "admin"; // ॲडमिन आहे की नाही तपासणे
+  const isAdmin = user?.role === "admin";
 
-  // २. स्टेट्स (States) मॅनेज करणे
+  
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showModal, setShowModal] = useState(false); // फॉर्म दाखवण्यासाठी
+  const [showModal, setShowModal] = useState(false); 
   const [newProject, setNewProject] = useState({ name: "", description: "" });
 
-  // ३. सुपाबेसमधून प्रोजेक्ट्सची लिस्ट आणणे
-  // 🔄 सुधारलेले fetchProjects फंक्शन
+  
   const fetchProjects = async () => {
     try {
       setLoading(true);
       const res = await API.get("/projects");
       
-      console.log("Backend Response:", res.data); // तुमच्या कन्सोलमध्ये खरा डेटा चेक करण्यासाठी
+      console.log("Backend Response:", res.data); 
 
-      // १. जर बॅकएंड थेट ॲरे पाठवत असेल
+     
       if (Array.isArray(res.data)) {
         setProjects(res.data);
       } 
-      // २. जर बॅकएंड { success: true, projects: [...] } किंवा { data: [...] } पाठवत असेल
+    
       else if (res.data && Array.isArray(res.data.projects)) {
         setProjects(res.data.projects);
       } else if (res.data && Array.isArray(res.data.data)) {
         setProjects(res.data.data);
       } 
-      // ३. काहीच नाही सापडले तर रिकामी लिस्ट सेट करा ताकि क्रॅश होणार नाही
+      
       else {
         setProjects([]);
       }
 
     } catch (err) {
       console.error("Error fetching projects:", err);
-      setProjects([]); // एरर आल्यास सुरक्षितपणे ब्लँक ॲरे ठेवा
+      setProjects([]); 
     } finally {
       setLoading(false);
     }
@@ -48,15 +46,15 @@ function Projects() {
     fetchProjects();
   }, []);
 
-  // ४. नवीन प्रोजेक्ट सबमिट करणे (फक्त ॲडमिनसाठी)
+  
   const handleCreateProject = async (e) => {
     e.preventDefault();
     try {
       await API.post("/projects", newProject);
       alert("Project Created Successfully! 🎉");
       setNewProject({ name: "", description: "" });
-      setShowModal(false); // फॉर्म बंद करणे
-      fetchProjects(); // लिस्ट रिफ्रेश करणे
+      setShowModal(false); 
+      fetchProjects(); 
     } catch (err) {
       alert(err.response?.data?.message || "Failed to create project");
     }
@@ -64,10 +62,10 @@ function Projects() {
 
   return (
     <div className="flex bg-[#F8F9FA] min-h-screen text-gray-800">
-      {/* डाव्या बाजूला साईडबार */}
+     
       <Sidebar />
 
-      {/* मुख्य कंटेन्ट एरिया */}
+      
       <div className="flex-1 ml-64 p-8">
         <div className="flex justify-between items-center mb-8">
           <div>
@@ -75,7 +73,7 @@ function Projects() {
             <p className="text-sm text-gray-500 mt-1">All team projects and workspaces</p>
           </div>
 
-          {/* 🔒 "Create Project" बटन फक्त ॲडमिनलाच दिसेल */}
+         
           {isAdmin && (
             <button
               onClick={() => setShowModal(true)}
@@ -86,7 +84,7 @@ function Projects() {
           )}
         </div>
 
-        {/* प्रोजेक्ट्स लिस्टिंग */}
+        
         {loading ? (
           <p className="text-gray-500 text-sm">Loading projects from Supabase...</p>
         ) : projects.length === 0 ? (
@@ -113,7 +111,7 @@ function Projects() {
           </div>
         )}
 
-        {/* 🛠️ Create Project Modal Form (फक्त ॲडमिनसाठी पॉपअप) */}
+       
         {showModal && (
           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
             <div className="bg-white p-8 rounded-3xl border border-gray-100 w-full max-w-md shadow-2xl">

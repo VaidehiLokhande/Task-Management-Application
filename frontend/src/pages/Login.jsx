@@ -36,7 +36,6 @@ function Login() {
     <div className="min-h-screen flex items-center justify-center bg-[#F3F4F6] p-4">
       <div className="bg-white p-8 rounded-2xl shadow-sm w-full max-w-md border border-gray-100">
         
-        {/* Header - Image सारखे Welcome Back */}
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-2">Welcome Back!</h2>
           <p className="text-sm text-gray-500">Login to your account</p>
@@ -73,7 +72,7 @@ function Login() {
             />
           </div>
 
-          {/* Login Button - Image प्रमाणे जांभळा (Purple) रंग */}
+          
           <button
             type="submit"
             className="w-full bg-[#5A52E5] hover:bg-[#4941CD] text-white font-medium py-2.5 rounded-lg transition-colors text-sm shadow-sm mt-2"
@@ -82,7 +81,7 @@ function Login() {
           </button>
         </form>
 
-        {/* Footer Link - Register पेजवर जाण्यासाठी */}
+      
         <div className="text-center mt-6">
           <p className="text-sm text-gray-500">
             Don't have an account?{' '}

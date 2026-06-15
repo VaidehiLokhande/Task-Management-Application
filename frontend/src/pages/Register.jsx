@@ -9,7 +9,7 @@ function Register() {
     name: "",
     email: "",
     password: "",
-    role: "user", // बाय-डिफॉल्ट 'user' असेल
+    role: "user",
   });
 
   const handleChange = (e) => {
@@ -23,7 +23,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      // खऱ्या सुपाबेस/बॅकएंड एपीआयला हिट करणे
+      
       const res = await API.post("/auth/register", form);
       
       alert("Registration Successful! 🎉");
@@ -38,7 +38,7 @@ function Register() {
     <div className="min-h-screen flex items-center justify-center bg-[#F8F9FA] p-4">
       <div className="bg-white p-8 rounded-3xl border border-gray-100 w-full max-w-md shadow-xl shadow-gray-200/50">
         
-        {/* लोगो आणि हेडर (Purple Theme) */}
+       
         <div className="flex items-center gap-3 mb-5 justify-center">
           <div className="w-9 h-9 bg-[#5A52E5] rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md shadow-[#5A52E5]/20">
             T
@@ -51,10 +51,10 @@ function Register() {
           <p className="text-sm text-gray-400 mt-1">Get started with your team collaboration tool</p>
         </div>
 
-        {/* फॉर्म */}
+        
         <form onSubmit={handleSubmit} className="space-y-4">
           
-          {/* Full Name इनपुट */}
+          
           <div>
             <label className="block text-xs font-bold text-gray-500 mb-1.5 ml-1">Full Name</label>
             <input
@@ -68,7 +68,7 @@ function Register() {
             />
           </div>
 
-          {/* Email इनपुट */}
+         
           <div>
             <label className="block text-xs font-bold text-gray-500 mb-1.5 ml-1">Email Address</label>
             <input
@@ -82,7 +82,6 @@ function Register() {
             />
           </div>
 
-          {/* Password इनपुट */}
           <div>
             <label className="block text-xs font-bold text-gray-500 mb-1.5 ml-1">Password</label>
             <input
@@ -96,7 +95,7 @@ function Register() {
             />
           </div>
 
-          {/* Role Selection Dropdown */}
+          
           <div>
             <label className="block text-xs font-bold text-gray-500 mb-1.5 ml-1">Select Role</label>
             <div className="relative">
@@ -115,7 +114,7 @@ function Register() {
             </div>
           </div>
 
-          {/* Register बटन */}
+         
           <button
             type="submit"
             className="w-full bg-[#5A52E5] hover:bg-[#4941CD] text-white text-sm font-bold py-3.5 rounded-2xl transition-all shadow-lg shadow-[#5A52E5]/25 mt-4"
@@ -124,7 +123,7 @@ function Register() {
           </button>
         </form>
 
-        {/* लॉगिनवर जाण्यासाठी लिंक */}
+       
         <div className="text-center mt-6 pt-5 border-t border-gray-50">
           <p className="text-sm text-gray-500">
             Already have an account?{' '}

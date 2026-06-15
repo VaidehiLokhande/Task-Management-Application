@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import API from "../services/api";
 import ReactCalendar from "react-calendar";
-import "react-calendar/dist/Calendar.css"; // कॅलेंडरचे बेसिक स्टाईल्स
-import "./CalendarCustom.css"; // आपल्या थीमशी मॅच करण्यासाठी कस्टम स्टाईल्स
+import "react-calendar/dist/Calendar.css"; 
+import "./CalendarCustom.css"; 
 
 function CalendarPage() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  // १. सुपाबेसमधून सर्व टास्क्स फेच करणे
+  
   const fetchTasks = async () => {
     try {
       setLoading(true);
@@ -31,13 +31,12 @@ function CalendarPage() {
     fetchTasks();
   }, []);
 
-  // २. कॅलेंडरमधील प्रत्येक तारखेवर कोणत्या दिवशी टास्क आहे ते ओळखण्यासाठी डॉट्स (Dots) दाखवणे
- // २. सुरक्षितपणे टास्क्सच्या तारखा मॅच करणे
+  
   const tileContent = ({ date, view }) => {
     if (view === "month" && tasks.length > 0) {
       const localDateStr = date.toLocaleDateString("en-CA"); 
       
-      // t.due_date असेल तरच फिल्टर करणार 🛠️
+      
       const dayTasks = tasks.filter(t => t.due_date && new Date(t.due_date).toLocaleDateString("en-CA") === localDateStr);
 
       if (dayTasks.length > 0) {
@@ -59,7 +58,7 @@ function CalendarPage() {
     return null;
   };
 
-  // ३. सिलेक्ट केलेल्या तारखेचे टास्क्स सुरक्षितपणे फिल्टर करणे
+  
   const selectedDateStr = selectedDate.toLocaleDateString("en-CA");
   const filteredTasksForDay = tasks.filter(
     t => t.due_date && new Date(t.due_date).toLocaleDateString("en-CA") === selectedDateStr
@@ -70,7 +69,7 @@ function CalendarPage() {
       <Sidebar />
 
       <div className="flex-1 ml-64 p-8">
-        {/* हेडर */}
+        
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Workspace Calendar</h1>
           <p className="text-sm text-gray-500 mt-1">Track deadlines and milestones</p>
@@ -81,7 +80,7 @@ function CalendarPage() {
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             
-            {/* डाव्या बाजूला मुख्य कॅलेंडर */}
+          
             <div className="lg:col-span-2 bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/30">
               <ReactCalendar
                 onChange={setSelectedDate}
@@ -91,7 +90,7 @@ function CalendarPage() {
               />
             </div>
 
-            {/* उजव्या बाजूला सिलेक्ट केलेल्या तारखेचे टास्क्स (Deadlines) */}
+           
             <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/30 min-h-[400px]">
               <div className="mb-6 border-b border-gray-50 pb-4">
                 <h3 className="font-bold text-gray-800 text-lg">Deadlines</h3>

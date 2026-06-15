@@ -21,7 +21,7 @@ function Tasks() {
     assigned_to: "", 
   });
 
-  // १. लोकल स्टेटमध्ये बदल ट्रॅक करण्यासाठी तात्पुरती स्टेट (Local changes cache)
+  
   const [localStatuses, setLocalStatuses] = useState({});
 
   const fetchTasksProjectsAndTeam = async () => {
@@ -35,7 +35,7 @@ function Tasks() {
 
       if (tasksRes.data && Array.isArray(tasksRes.data.tasks)) {
         setTasks(tasksRes.data.tasks);
-        // सुरुवातीला सर्व टास्क्सचे करंट स्टेटस लोकल स्टेटमध्ये मॅप करून ठेवूया
+        
         const statuses = {};
         tasksRes.data.tasks.forEach(t => {
           statuses[t.id] = t.status || "To Do";
@@ -59,7 +59,7 @@ function Tasks() {
     fetchTasksProjectsAndTeam();
   }, []);
 
-  // २. ड्रॉपडाउन बदलल्यावर फक्त लोकल स्टेट अपडेट करणे
+  
   const handleDropdownChange = (taskId, selectedStatus) => {
     setLocalStatuses(prev => ({
       ...prev,
@@ -67,15 +67,15 @@ function Tasks() {
     }));
   };
 
-  // ३. 🎯 "Submit Work" बटन लॉजिक (फक्त Completed साठी GitHub URL प्रॉम्प्ट करेल)
+
   const handleSubmitStatus = async (taskId) => {
     const finalStatus = localStatuses[taskId];
     let githubUrl = null;
 
-    // जर टास्क 'Completed' म्हणून सबमिट होत असेल, तरच GitHub URL मागावी
+    
     if (finalStatus === "Completed") {
       const urlInput = prompt("Please enter your GitHub repository or project link to submit work:");
-      if (urlInput === null) return; // जर युझरने कॅन्सल दाबलं तर प्रोसेस थांबवा
+      if (urlInput === null) return; 
       if (urlInput.trim() === "") {
         alert("GitHub URL is mandatory to complete the task!");
         return;
@@ -84,7 +84,7 @@ function Tasks() {
     }
 
     try {
-      // 🎯 बॅकएंडला स्टेटस आणि github_url दोन्ही पाठवत आहोत
+      
       const res = await API.put(`/tasks/${taskId}/status`, { 
         status: finalStatus,
         github_url: githubUrl 
@@ -92,7 +92,7 @@ function Tasks() {
 
       if (res.data.success) {
         alert(`Task status submitted as "${finalStatus}"! 🎉`);
-        // मेन टास्क्स लिस्ट लोकल स्टेटमध्ये रिअल-टाइम अपडेट करा
+        
         setTasks(prevTasks =>
           prevTasks.map(task =>
             task.id === taskId ? { ...task, status: finalStatus, github_url: githubUrl } : task
@@ -140,7 +140,7 @@ function Tasks() {
           )}
         </div>
 
-        {/* टास्क्स लिस्ट */}
+        
         {loading ? (
           <p className="text-gray-500 text-sm animate-pulse">Loading tasks...</p>
         ) : tasks.length === 0 ? (
@@ -162,8 +162,7 @@ function Tasks() {
               </thead>
               <tbody className="divide-y divide-gray-50 text-sm text-gray-700">
                 {tasks.map((task) => {
-                  // 🎯 कंडिशन: बटन फक्त तेव्हाच Active (Dark Blue) होईल जेव्हा ड्रॉपडाउन 'Completed' असेल 
-                  // आणि तो टास्क डेटाबेसमध्ये आधीपासून 'Completed' नसेल.
+                  
                   const isReadyToSubmit = localStatuses[task.id] === "Completed" && task.status !== "Completed";
 
                   return (
@@ -203,7 +202,6 @@ function Tasks() {
                         </span>
                       </td>
 
-                      {/* ड्रॉपडाउन निवडणे */}
                       <td className="p-5">
                         <select
                           value={localStatuses[task.id] || "To Do"}
@@ -220,7 +218,7 @@ function Tasks() {
                         {new Date(task.due_date).toLocaleDateString()}
                       </td>
 
-                      {/* सबमिट वर्क बटन कॉलम */}
+                     
                       <td className="p-5 text-center">
                         <button
                           onClick={() => handleSubmitStatus(task.id)}

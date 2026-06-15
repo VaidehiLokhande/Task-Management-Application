@@ -202,7 +202,6 @@ function Team() {
                 />
               </div>
 
-              {/* 👈 ३. नवीन जोडलेली पासवर्ड इनपुट फील्ड */}
               <div>
                 <label className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Login Password</label>
                 <input 

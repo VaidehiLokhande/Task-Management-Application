@@ -6,12 +6,11 @@ function Notifications() {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // १. सुपाबेसमधून लाइव्ह नोटिफिकेशन्स किंवा टास्क्सच्या बेसिसवर नोटिफिकेशन्स जनरेट करणे
+ 
   const fetchNotifications = async () => {
     try {
       setLoading(true);
-      // आपण टास्क्सचा डेटा आणून त्यावरून डायनॅमिक नोटिफिकेशन्स बनवूया 
-      // (किंवा तुमच्या बॅकएंडला /notifications चा रूट असेल तर थेट तो वापरू शकता)
+     
       const res = await API.get("/tasks");
       let tasksArr = [];
       
@@ -21,7 +20,7 @@ function Notifications() {
         tasksArr = res.data;
       }
 
-      // टास्क्सवरून सुंदर प्रोग्रेसिव्ह नोटिफिकेशन्स तयार करूया
+      
       const generatedNotifications = tasksArr.map((task, index) => {
         let type = "info";
         let icon = "🔔";
@@ -60,7 +59,7 @@ function Notifications() {
     fetchNotifications();
   }, []);
 
-  // २. सर्व नोटिफिकेशन्स 'Read' (Clear) करण्यासाठी फंक्शन
+  
   const markAllAsRead = () => {
     setNotifications(notifications.map(n => ({ ...n, read: true })));
   };
@@ -70,7 +69,7 @@ function Notifications() {
       <Sidebar />
 
       <div className="flex-1 ml-64 p-8">
-        {/* 💎 मिनिमल आणि प्रोफेशनल हेडर */}
+       
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Notifications</h1>
@@ -109,7 +108,7 @@ function Notifications() {
                       : "bg-white border-gray-100 shadow-sm hover:shadow-md"
                   }`}
                 >
-                  {/* आयकॉनचा गोल बॉक्स */}
+                 
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-bold text-base ${
                     notification.type === "urgent" ? "bg-red-50 text-red-500" :
                     notification.type === "success" ? "bg-green-50 text-green-500" : "bg-blue-50 text-blue-500"
@@ -117,7 +116,7 @@ function Notifications() {
                     {notification.icon}
                   </div>
 
-                  {/* मेसेज आणि कंटेट */}
+                 
                   <div className="flex-1">
                     <div className="flex justify-between items-center gap-2">
                       <h3 className={`text-sm font-bold ${notification.type === "urgent" ? "text-red-950" : "text-gray-800"}`}>

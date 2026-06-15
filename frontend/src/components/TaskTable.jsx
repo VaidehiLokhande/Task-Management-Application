@@ -1,7 +1,6 @@
 import React from 'react';
 
 function TaskTable() {
-  // डॅशबोर्डवर दाखवण्यासाठी काही डमी टास्क डेटा (UI Preview प्रमाणे)
   const tasks = [
     {
       id: 1,
@@ -37,7 +36,6 @@ function TaskTable() {
     }
   ];
 
-  // प्रायोरिटीनुसार वेगवेगळे कलर्स देणारे फंक्शन
   const getPriorityStyle = (priority) => {
     switch (priority) {
       case 'High': return 'bg-red-50 text-red-600';
@@ -47,7 +45,6 @@ function TaskTable() {
     }
   };
 
-  // स्टेटसनुसार वेगवेगळे कलर्स देणारे फंक्शन
   const getStatusStyle = (status) => {
     switch (status) {
       case 'Completed': return 'bg-green-100 text-green-800';
@@ -60,7 +57,6 @@ function TaskTable() {
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-xs overflow-hidden">
       
-      {/* टेबल हेडर */}
       <div className="p-5 border-b border-gray-100 flex justify-between items-center bg-white">
         <h3 className="text-lg font-bold text-gray-800">Recent Tasks</h3>
         <button className="text-xs font-semibold text-[#5A52E5] hover:underline">
@@ -68,7 +64,6 @@ function TaskTable() {
         </button>
       </div>
 
-      {/* टेबल एरिया */}
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>

@@ -6,7 +6,6 @@ function KanbanDashboard() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 1. डेटाबेस मधून टास्क्स लोड करणे
   const fetchTasks = async () => {
     try {
       const res = await API.get("/tasks");
@@ -24,27 +23,27 @@ function KanbanDashboard() {
     fetchTasks();
   }, []);
 
-  // 2. जेव्हा स्टेटस बदलून "To Do", "In Progress", किंवा "Completed" होईल
+  
   const handleStatusChange = async (taskId, newStatus) => {
     try {
-      // आपण बॅकएंडला बनवलेला सुरक्षित /tasks/:id/status रूट
+      
       const res = await API.put(`/tasks/${taskId}/status`, {
         status: newStatus,
       });
 
       if (res.data.success) {
-        // फ्रंटएंड स्टेट लगेच अपडेट करायची (Real-time update)
+        
         setTasks((prevTasks) =>
           prevTasks.map((t) => (t.id === taskId ? { ...t, status: newStatus } : t))
         );
       }
     } catch (err) {
       console.error("Error updating status:", err);
-      alert("You can only update your own tasks!"); // सिक्युरिटी अलर्ट
+      alert("You can only update your own tasks!"); 
     }
   };
 
-  // टास्क्स फिल्टर करणे (Columns साठी)
+ 
   const todoTasks = tasks.filter((t) => t.status === "To Do");
   const inProgressTasks = tasks.filter((t) => t.status === "In Progress");
   const doneTasks = tasks.filter((t) => t.status === "Completed" || t.status === "Done");
@@ -56,7 +55,7 @@ function KanbanDashboard() {
       <Sidebar />
       <div className="flex-1 ml-64 p-8">
         
-        {/* Header Section */}
+       
         <div className="mb-6">
           <h1 className="text-2xl font-black text-gray-800">Kanban Board</h1>
           <p className="text-gray-500 text-sm">Drag, drop and track your task workflow visually</p>

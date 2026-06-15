@@ -3,7 +3,7 @@ import Sidebar from "../components/Sidebar";
 import API from "../services/api";
 
 function Profile() {
-  // 👤 localstorage मधून सध्या लॉगिन असलेल्या युझरची माहिती मिळवणे
+ 
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [stats, setStats] = useState({
@@ -12,18 +12,16 @@ function Profile() {
   });
   const [loading, setLoading] = useState(true);
 
-  // 🔄 सुपाबेसमधून या विशिष्ट युझरचे खरे स्टॅट्स काउंट्स आणणे
   const fetchUserStats = async () => {
     try {
       setLoading(true);
       
-      // प्रोजेक्ट्स आणि टास्क्सचा डेटा एकाच वेळी आणूया
+      
       const [projectsRes, tasksRes] = await Promise.all([
         API.get("/projects"),
         API.get("/tasks"),
       ]);
 
-      // १. प्रोजेक्ट्स मोजणे
       let projectsArr = [];
       if (projectsRes.data && Array.isArray(projectsRes.data.projects)) {
         projectsArr = projectsRes.data.projects;
@@ -31,7 +29,7 @@ function Profile() {
         projectsArr = projectsRes.data;
       }
 
-      // २. टास्क्स मोजणे (फक्त 'Done' झालेले टास्क्स)
+      
       let tasksArr = [];
       if (tasksRes.data && Array.isArray(tasksRes.data.tasks)) {
         tasksArr = tasksRes.data.tasks;
@@ -56,7 +54,7 @@ function Profile() {
     fetchUserStats();
   }, []);
 
-  // युझरच्या नावाचे पहिले २ अक्षरे अव्हाटारसाठी काढणे
+ 
   const avatarInitials = user?.name ? user.name.substring(0, 2).toUpperCase() : "AN";
 
   return (
@@ -64,7 +62,7 @@ function Profile() {
       <Sidebar />
 
       <div className="flex-1 ml-64 p-8">
-        {/* Top Header Block */}
+        
         <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex justify-between items-center mb-8">
           <div>
             <h2 className="text-xl font-bold text-gray-800">Hello, {user?.name || "Anushka"} 👋</h2>
@@ -81,7 +79,7 @@ function Profile() {
           </div>
         </div>
 
-        {/* My Profile Title */}
+       
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900 tracking-tight">My Profile</h1>
           <p className="text-xs text-gray-400 mt-0.5">View your personal account details and statistics</p>
@@ -90,10 +88,10 @@ function Profile() {
         {loading ? (
           <p className="text-sm text-gray-400">Loading your profile details...</p>
         ) : (
-          /* २ कॉलम मुख्य लेआउट */
+          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
             
-            {/* डावी बाजू: अव्हाटार आणि क्विक स्टॅट्स */}
+           
             <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/20 text-center">
               <div className="w-28 h-28 bg-[#5A52E5] rounded-full flex items-center justify-center text-white font-bold text-3xl mx-auto mb-4 shadow-lg shadow-[#5A52E5]/20">
                 {avatarInitials}
@@ -117,7 +115,7 @@ function Profile() {
               </div>
             </div>
 
-            {/* उजव्या बाजूला: अकाऊंट डिटेल्स फॉर्म/टेबल */}
+            
             <div className="md:col-span-2 bg-white p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/20">
               <h3 className="text-base font-bold text-gray-800 mb-6 tracking-tight">Account Details</h3>
 

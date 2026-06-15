@@ -12,7 +12,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-// backend/server.js च्या आत असं असायला हवं:
+
 app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api/tasks", require("./routes/task.routes"));
 app.use("/api/projects", require("./routes/project.routes"));

@@ -9,7 +9,7 @@ const {
   updateTask,
   deleteTask,
   getDashboardStats,
-  updateTaskStatus // 👈 १. हा नवीन कंट्रोलर इथे इंपोर्ट करायला हवा!
+  updateTaskStatus // 
 } = require("../controllers/taskController");
 
 router.post("/", authMiddleware, createTask);
@@ -22,7 +22,6 @@ router.delete("/:id", authMiddleware, deleteTask);
 
 router.get("/dashboard-stats", authMiddleware, getDashboardStats);
 
-// 👈 २. 🎯 हा नवीन राऊट इथे जोडला (जो लाईन १८ वर एरर देत होता)
 router.put("/:id/status", authMiddleware, updateTaskStatus);
 
 module.exports = router;
